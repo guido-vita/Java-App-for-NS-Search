@@ -1,0 +1,15 @@
+com\guido\maven\java_ns_app\utils\PrintUtils.class
+com\guido\maven\java_ns_app\ResponseHandler.class
+com\guido\maven\java_ns_app\Fields.class
+com\guido\maven\java_ns_app\Operation.class
+com\guido\maven\java_ns_app\WsClientFactory.class
+com\guido\maven\java_ns_app\utils\IndentationUtils.class
+com\guido\maven\java_ns_app\io\Console.class
+com\guido\maven\java_ns_app\io\Logger.class
+com\guido\maven\java_ns_app\Properties.class
+com\guido\maven\java_ns_app\utils\ParsingUtils.class
+com\guido\maven\java_ns_app\Messages.class
+com\guido\maven\java_ns_app\App.class
+com\guido\maven\java_ns_app\OptionList.class
+com\guido\maven\java_ns_app\SampleOperations.class
+com\guido\maven\java_ns_app\utils\StringUtils.class
