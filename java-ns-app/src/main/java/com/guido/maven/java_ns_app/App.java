@@ -5,6 +5,10 @@ import org.apache.axis.AxisFault;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.rmi.RemoteException;
+
+import com.netsuite.suitetalk.proxy.v2017_2.platform.common.TransactionSearchBasic;
+import com.netsuite.suitetalk.proxy.v2017_2.platform.common.TransactionSearchRowBasic;
 
 import static com.guido.maven.java_ns_app.Messages.ERROR_OCCURRED;
 import static com.guido.maven.java_ns_app.Messages.INVALID_WS_URL;
@@ -34,7 +38,7 @@ public class App
             System.exit(1);
         }
         
-        TransactionSearchBasic tranSearch = new TransactionSearchBasic();
-        new SampleOperations(client).run();
-    }
+       	SampleOperations operations = new SampleOperations(client);
+       	operations.run();       			
+	}
 }
