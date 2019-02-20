@@ -48,6 +48,9 @@ import com.netsuite.suitetalk.proxy.v2017_2.transactions.sales.types.SalesOrderO
 import com.guido.maven.java_ns_app.utils.PrintUtils;
 import org.apache.axis.AxisFault;
 
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -96,8 +99,10 @@ public class SampleOperations {
      */
     public SampleOperations(WsClient client) {
         this.client = client;
+        String searchId = "100";
+        advancedSavedSearchOnTransaction(searchId);
         // All possible sample operations
-        addCustomer();
+        /*addCustomer();
         addCustomerWithCustomFields();
         updateCustomer();
         upsertCustomer();
@@ -116,7 +121,7 @@ public class SampleOperations {
         deleteCustomRecord();
         getOtherListValues();
         uploadFile();
-        getSelectFieldValues();
+        getSelectFieldValues();*/
     }
 
     /**
@@ -738,6 +743,60 @@ public class SampleOperations {
             client.setPageSize(DEFAULT_PAGE_SIZE);
         });
     }
+    
+    private static int calculateFirstIndexOnPage(int pageSize, int pageIndex) {
+        return pageSize * (pageIndex - 1) + 1;
+    }
+    
+    public void advancedSavedSearchOnTransaction(String searchId) {
+    	SAMPLE_OPERATIONS.put(ADVANCED_SEARCH_WITH_ID, () -> {
+    		TransactionSearchAdvanced advSearch = new TransactionSearchAdvanced();
+    		advSearch.setSavedSearchId(searchId);
+    		
+    		SearchResult searchResult = client.callSearch(advSearch);
+    		final String jobId = client.getLastJobId();
+
+    		if (searchResult == null || (searchResult.getStatus().isIsSuccess() && searchResult.getTotalRecords() == 0)) {
+                printWithEmptyLine("No Sales Orders");
+                return;
+            }
+    		
+    		if (searchResult.getStatus().isIsSuccess()) {
+    			final int currentPageIndex = searchResult.getPageIndex();
+                final int firstIndexOnCurrentPage = calculateFirstIndexOnPage(searchResult.getPageSize(), currentPageIndex);
+                List<SalesOrder> salesOrders;
+                salesOrders = Arrays.stream(searchResult.getRecordList().getRecord())
+                        .map(record -> (SalesOrder) record)
+                        .collect(Collectors.toList());
+                
+                try (java.io.PrintWriter writer = new java.io.PrintWriter(new java.io.File("Results.csv"))) {
+                	StringBuilder sb = new StringBuilder();
+	                for (int i = 0; i < salesOrders.size(); i++) {
+	                	SalesOrder salesOrder = salesOrders.get(i);
+	                	if (salesOrder.getItemList() != null) {
+	                        for (SalesOrderItem item : salesOrder.getItemList().getItem()) {
+	                        	final String DELIMITER = LIST_ITEM_DELIMITER + SPACE;
+	                            
+	                            Map<String, String> map = new Fields(item);
+	                            for (Map.Entry<String, String> entry : map.entrySet()) {
+	                                sb.append(entry.getValue()).append(DELIMITER);
+	                            }
+	                            if (sb.length() > 0) {
+	                                sb.delete(sb.length() - DELIMITER.length(), sb.length());
+	                            }
+	                            sb.append("\r\n");
+	                        }
+	                    }
+	                }
+	                writer.write(sb.toString());
+	                writer.close();
+                } catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+    		}
+    	});
+	}
 
     /**
      * Demonstrates how to use advanced search for searching Sales Orders which belong to a given customer name.

@@ -1,5 +1,8 @@
 package com.guido.maven.java_ns_app;
 
+
+import java.io.IOException;
+
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
@@ -14,8 +17,9 @@ public class AppTest
      * Create the test case
      *
      * @param testName name of the test case
+     * @throws IOException 
      */
-    public AppTest( String testName )
+    public AppTest( String testName ) throws IOException
     {
         super( testName );
     }

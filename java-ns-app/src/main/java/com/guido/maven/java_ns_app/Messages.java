@@ -44,6 +44,7 @@ public final class Messages {
     public static final String FULFILL_SALES_ORDER = "Fulfill a Sales Order (Internal ID required)";
     public static final String SEARCH_SALES_ORDERS = "Search Sales Orders by Customer Entity ID";
     public static final String ADVANCED_SEARCH_SALES_ORDERS = "Search Sales Orders with Advanced Search";
+    public static final String ADVANCED_SEARCH_WITH_ID = "Search with Saved Search Internal ID";
     public static final String ADD_CUSTOM_RECORD = "Add a Custom Record (Custom Record type must exist, Internal ID required)";
     public static final String SEARCH_CUSTOM_RECORD = "Search for a Custom Record (Internal ID required)";
     public static final String DELETE_CUSTOM_RECORD = "Delete a Custom Record (Internal ID required)";

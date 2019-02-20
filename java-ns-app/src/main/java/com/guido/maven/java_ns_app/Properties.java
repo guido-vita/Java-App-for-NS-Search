@@ -57,6 +57,9 @@ public class Properties extends java.util.Properties {
         load(new FileInputStream(PROPERTIES_FILE));
     }
 
+    public String getEmail() {
+    	return getProperty(EMAIL);
+    }
     /**
      * @return URL for web services endpoint written in properties file
      * @throws MalformedURLException If URL in properties file has invalid format

@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.rmi.RemoteException;
 
+import com.guido.maven.java_ns_app.io.Logger;
+
 import com.netsuite.suitetalk.proxy.v2017_2.platform.common.TransactionSearchBasic;
 import com.netsuite.suitetalk.proxy.v2017_2.platform.common.TransactionSearchRowBasic;
 
@@ -22,8 +24,11 @@ import static com.guido.maven.java_ns_app.utils.PrintUtils.printError;
  */
 public class App 
 {
-    public static void main( String[] args )
+	private static final Logger LOG = Logger.getInstance();
+    public static void main( String[] args ) throws IOException
     {
+    	Properties prop = new Properties();
+        LOG.info(prop.getEmail());/*
     	WsClient client = null;
         try {
             client = WsClientFactory.getWsClient(new Properties(), null);
@@ -39,6 +44,6 @@ public class App
         }
         
        	SampleOperations operations = new SampleOperations(client);
-       	operations.run();       			
+       	operations.run();*/
 	}
 }
